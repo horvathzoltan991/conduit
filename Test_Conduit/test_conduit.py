@@ -14,12 +14,14 @@ class TestConduit(object):
     def teardown(self):
         self.browser.quit()
 
+    # TC01 - Adatkezelési nyilatkozat használata (elfogadása)
     def test_accept_cookies(self):
         accept_cookies(self.browser)
         accept_cookie_btn_list = self.browser.find_elements_by_xpath(
             '//button[@class="cookie__bar__buttons__button cookie__bar__buttons__button--accept"]')
         assert len(accept_cookie_btn_list) == 0
 
+    # TC02 - Regisztráció (hiányos adatokkal)
     def test_sign_up(self):
         sign_up_nav_btn = self.browser.find_element_by_xpath('//a[@href="#/register"]')
         sign_up_nav_btn.click()
@@ -31,11 +33,13 @@ class TestConduit(object):
         assert error_msg.text == 'Registration failed!'
         assert error_reason.text == 'Username field required.'
 
+    # TC03 - Bejelentkezés (helyes adatokkal)
     def test_login(self):
         login(self.browser, 'hzoltan@gmail.com', 'Jelszo123')
         profile_btn = self.browser.find_elements_by_xpath('//a[@class="nav-link"]')[2]
         assert profile_btn.text == 'hzoltan'
 
+    # TC04 - Adatok listázása (tagek listázása)
     def test_display_list(self):
         login(self.browser, 'hzoltan@gmail.com', 'Jelszo123')
         ipsum_tag = self.browser.find_element_by_xpath(
@@ -45,6 +49,7 @@ class TestConduit(object):
         articles = self.browser.find_elements_by_xpath('//a[@class="preview-link"]/h1')
         assert len(articles) > 0
 
+    # TC05 - Több oldalas lista bejárása (bejegyzések végiglapozása)
     def test_pagination(self):
         login(self.browser, 'hzoltan@gmail.com', 'Jelszo123')
         page_links = self.browser.find_elements_by_xpath('//a[@class="page-link"]')
@@ -53,12 +58,14 @@ class TestConduit(object):
             time.sleep(1)
         assert int(page_links[-1].text) == len(page_links)
 
+    # TC06 - Új adat bevitel (új bejegyzés posztolása)
     def test_create_new_article(self):
         login(self.browser, 'hzoltan@gmail.com', 'Jelszo123')
         publish_article(self.browser, 'Title', 'Summary', 'Text', 'Tag')
         published_article_title = self.browser.find_element_by_xpath('//div/h1')
         assert published_article_title.text == 'Title'
 
+    # TC07 - Ismételt és sorozatos adatbevitel adatforrásból (bejegyzés adatainak beolvasása)
     def test_import_data_from_file(self):
         login(self.browser, 'hzoltan@gmail.com', 'Jelszo123')
         with open('Test_Conduit/article.csv', 'r') as f:
@@ -68,6 +75,7 @@ class TestConduit(object):
         published_article_title = self.browser.find_element_by_xpath('//div/h1')
         assert published_article_title.text == 'CSV Title'
 
+    # TC08 - Meglévő adat módosítás (profilkép megváltoztatása)
     def test_update_profile_pic(self):
         login(self.browser, 'hzoltan@gmail.com', 'Jelszo123')
         navigate_to_settings(self.browser)
@@ -75,6 +83,7 @@ class TestConduit(object):
         update_msg = self.browser.find_element_by_xpath('//div[@class="swal-title"]')
         assert update_msg.text == 'Update successful!'
 
+    # TC09 - Adat vagy adatok törlése (komment törlése)
     def test_delete_comment(self):
         login(self.browser, 'hzoltan@gmail.com', 'Jelszo123')
         add_comment(self.browser, 'This is a comment!')
@@ -82,6 +91,7 @@ class TestConduit(object):
         comments = self.browser.find_elements_by_xpath('//div[@class="card"]')
         assert len(comments) == 0
 
+    # TC10 - Adatok lementése felületről (tagek lementése)
     def test_save_data_to_file(self):
         tags = self.browser.find_elements_by_xpath('//a[@class="tag-pill tag-default"]')
         with open('Test_Conduit/tags.txt', 'w') as f:
@@ -92,6 +102,7 @@ class TestConduit(object):
             for i, tag in enumerate(tags):
                 assert tag.text == txt_tags[i]
 
+    # TC11 - Kijelentkezés
     def test_logout(self):
         login(self.browser, 'hzoltan@gmail.com', 'Jelszo123')
         logout(self.browser)
