@@ -14,7 +14,6 @@ page_links = browser.find_elements_by_xpath('//a[@class="page-link"]')
 
 for page_link in page_links:
     page_link.click()
-    time.sleep(1)
 
 assert int(page_links[-1].text) == len(page_links)
 
