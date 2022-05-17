@@ -1,7 +1,6 @@
 import time
 
-
-def accept_cookie(browser):
+def accept_cookies(browser):
     accept_cookie_btn = browser.find_element_by_xpath(
         '//button[@class="cookie__bar__buttons__button cookie__bar__buttons__button--accept"]')
     accept_cookie_btn.click()
