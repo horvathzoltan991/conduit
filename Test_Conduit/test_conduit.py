@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from functions import *
 from data import test_data
@@ -7,7 +8,9 @@ import csv
 
 class TestConduit(object):
     def setup(self):
-        self.browser = webdriver.Chrome(ChromeDriverManager().install())
+        browser_options = Options()
+        browser_options.headless = True
+        self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=browser_options)
         url = 'http://localhost:1667/'
         self.browser.get(url)
 
