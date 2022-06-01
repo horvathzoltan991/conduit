@@ -36,15 +36,15 @@ def login(browser, email, password):
 
 
 def logout(browser):
-    log_out_btn = WebDriverWait(browser, 5).until(EC.presence_of_element_located((By.XPATH, '//ul/li[5]/a')))
+    log_out_btn = WebDriverWait(browser, 30).until(EC.presence_of_element_located((By.XPATH, '//ul/li[5]/a')))
     log_out_btn.click()
 
 
 def publish_article(browser, title, summary, text, tag):
-    new_article_btn = WebDriverWait(browser, 10).until(
+    new_article_btn = WebDriverWait(browser, 300).until(
         EC.presence_of_element_located((By.XPATH, '//a[@href="#/editor"]')))
     new_article_btn.click()
-    article_title = WebDriverWait(browser, 10).until(
+    article_title = WebDriverWait(browser, 30).until(
         EC.presence_of_element_located((By.XPATH, '//fieldset/input[@class="form-control form-control-lg"]')))
     article_title.send_keys(title)
     article_summary = browser.find_element_by_xpath('//fieldset/input[@class="form-control"]')
@@ -61,7 +61,7 @@ def add_comment(browser, comment):
     time.sleep(2)
     first_post = browser.find_elements_by_xpath('//h1')[1]
     first_post.click()
-    comment_textarea = WebDriverWait(browser, 10).until(
+    comment_textarea = WebDriverWait(browser, 30).until(
         EC.presence_of_element_located((By.XPATH, '//textarea[@placeholder="Write a comment..."]')))
     comment_textarea.send_keys(comment)
     post_btn = browser.find_element_by_xpath('//button[@class="btn btn-sm btn-primary"]')
@@ -69,13 +69,13 @@ def add_comment(browser, comment):
 
 
 def navigate_to_settings(browser):
-    settings_btn = WebDriverWait(browser, 10).until(
+    settings_btn = WebDriverWait(browser, 30).until(
         EC.presence_of_element_located((By.XPATH, '//a[@href="#/settings"]')))
     settings_btn.click()
 
 
 def change_profile_pic(browser, url):
-    picture_link_input = WebDriverWait(browser, 10).until(
+    picture_link_input = WebDriverWait(browser, 30).until(
         EC.presence_of_element_located((By.XPATH, '//input[@placeholder="URL of profile picture"]')))
     picture_link_input.clear()
     picture_link_input.send_keys(url)
@@ -84,7 +84,7 @@ def change_profile_pic(browser, url):
 
 
 def delete_comment(browser):
-    delete_btn = WebDriverWait(browser, 10).until(
+    delete_btn = WebDriverWait(browser, 30).until(
         EC.presence_of_element_located((By.XPATH, '//i[@class="ion-trash-a"]')))
     delete_btn.click()
     time.sleep(2)
