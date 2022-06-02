@@ -28,8 +28,7 @@ class TestConduit(object):
     def test_sign_up(self):
         registration(self.browser, test_data['invalid_username'], test_data['invalid_email'],
                      test_data['invalid_password'])
-        error_msg = WebDriverWait(self.browser, 15).until(
-            EC.presence_of_element_located((By.XPATH, '//div[@class="swal-title"]')))
+        error_msg = self.browser.find_element_by_xpath('//div[@class="swal-title"]')
         error_reason = self.browser.find_element_by_xpath('//div[@class="swal-text"]')
         assert error_msg.text == 'Registration failed!'
         assert error_reason.text == 'Username field required.'
@@ -37,26 +36,23 @@ class TestConduit(object):
     # TC03 - Bejelentkezés (helyes adatokkal)
     def test_login(self):
         login(self.browser, test_data['valid_email'], test_data['valid_password'])
-        profile_btn = WebDriverWait(self.browser, 15).until(
-            EC.presence_of_element_located((By.XPATH, '//a[@href="#/@hzoltan/" and @class="nav-link"]')))
+        profile_btn = self.browser.find_elements_by_xpath('//a[@class="nav-link"]')[2]
         assert profile_btn.text == 'hzoltan'
 
     # TC04 - Adatok listázása (tagek listázása)
     def test_display_list(self):
         login(self.browser, test_data['valid_email'], test_data['valid_password'])
-        ipsum_tag = WebDriverWait(self.browser, 15).until(EC.presence_of_element_located(
-            (By.XPATH, '//div[@class="sidebar"]/div[@class="tag-list"]/a[text()="ipsum"]')))
+        ipsum_tag = self.browser.find_element_by_xpath(
+            '//div[@class="sidebar"]/div[@class="tag-list"]/a[text()="ipsum"]')
         ipsum_tag.click()
         time.sleep(1)
-        articles = WebDriverWait(self.browser, 15).until(
-            EC.presence_of_all_elements_located((By.XPATH, '//a[@class="preview-link"]/h1')))
+        articles = self.browser.find_elements_by_xpath('//a[@class="preview-link"]/h1')
         assert len(articles) > 0
 
     # TC05 - Több oldalas lista bejárása (bejegyzések végiglapozása)
     def test_pagination(self):
         login(self.browser, test_data['valid_email'], test_data['valid_password'])
-        page_links = WebDriverWait(self.browser, 15).until(
-            EC.presence_of_all_elements_located((By.XPATH, '//a[@class="page-link"]')))
+        page_links = self.browser.find_elements_by_xpath('//a[@class="page-link"]')
         for page_link in page_links:
             page_link.click()
         assert int(page_links[-1].text) == len(page_links)
@@ -67,8 +63,7 @@ class TestConduit(object):
         publish_article(self.browser, test_data['article_title'], test_data['article_summary'],
                         test_data['article_text'],
                         test_data['article_tag'])
-        published_article_title = WebDriverWait(self.browser, 15).until(
-            EC.presence_of_element_located((By.XPATH, '//div/h1')))
+        published_article_title = self.browser.find_element_by_xpath('//div/h1')
         assert published_article_title.text == 'Test Title'
 
     # TC07 - Ismételt és sorozatos adatbevitel adatforrásból (bejegyzés adatainak beolvasása csv-ből)
@@ -78,8 +73,7 @@ class TestConduit(object):
             csv_reader = csv.reader(f)
             for row in csv_reader:
                 publish_article(self.browser, row[0], row[1], row[2], row[3])
-        published_article_title = WebDriverWait(self.browser, 15).until(
-            EC.presence_of_element_located((By.XPATH, '//div/h1')))
+        published_article_title = self.browser.find_element_by_xpath('//div/h1')
         assert published_article_title.text == 'CSV Title'
 
     # TC08 - Meglévő adat módosítás (profilkép megváltoztatása)
@@ -87,8 +81,7 @@ class TestConduit(object):
         login(self.browser, test_data['valid_email'], test_data['valid_password'])
         navigate_to_settings(self.browser)
         change_profile_pic(self.browser, 'https://i.pinimg.com/474x/7c/4d/15/7c4d1533480bb4c5911d95699fef5186.jpg')
-        update_msg = WebDriverWait(self.browser, 15).until(
-            EC.presence_of_element_located((By.XPATH, '//div[@class="swal-title"]')))
+        update_msg = self.browser.find_element_by_xpath('//div[@class="swal-title"]')
         assert update_msg.text == 'Update successful!'
 
     # TC09 - Adat vagy adatok törlése (komment törlése)
@@ -114,6 +107,5 @@ class TestConduit(object):
     def test_logout(self):
         login(self.browser, test_data['valid_email'], test_data['valid_password'])
         logout(self.browser)
-        sign_in_btn = WebDriverWait(self.browser, 15).until(
-            EC.presence_of_element_located((By.XPATH, '//a[@href="#/login"]')))
+        sign_in_btn = self.browser.find_element_by_xpath('//a[@href="#/login"]')
         assert sign_in_btn.is_displayed()
