@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Jun 08 09:20:13 GMT 2022","Wed Jun 08 09:20:15 GMT 2022","2313","Test_Conduit","test_conduit","TestConduit","","","test_sign_up",""
+"passed","Wed Jun 08 09:20:09 GMT 2022","Wed Jun 08 09:20:11 GMT 2022","2053","Test_Conduit","test_conduit","TestConduit","","","test_accept_cookies",""
+"broken","Wed Jun 08 09:20:17 GMT 2022","Wed Jun 08 09:20:19 GMT 2022","2267","Test_Conduit","test_conduit","TestConduit","","","test_login",""
