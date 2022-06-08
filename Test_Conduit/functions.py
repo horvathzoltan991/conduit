@@ -25,7 +25,7 @@ def registration(browser, username, email, password):
 
 
 def login(browser, email, password):
-    sign_in_nav_btn = browser.find_element_by_xpath('//a[@href="#/login"]')
+    sign_in_nav_btn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//a[@href="#/login"]')))
     sign_in_nav_btn.click()
     email_input = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//input[@type="text"]')))
     email_input.send_keys(email)
