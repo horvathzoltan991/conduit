@@ -62,7 +62,7 @@ def publish_article(browser, title, summary, text, tag):
 
 
 def add_comment(browser, comment):
-    # time.sleep(2)
+    time.sleep(2)
     first_post = browser.find_elements_by_xpath('//h1')[1]
     first_post.click()
     comment_textarea = WebDriverWait(browser, 10).until(
