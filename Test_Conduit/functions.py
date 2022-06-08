@@ -22,7 +22,6 @@ def registration(browser, username, email, password):
     password_input.send_keys(password)
     sign_up_btn = browser.find_element_by_xpath('//button[@class="btn btn-lg btn-primary pull-xs-right"]')
     sign_up_btn.click()
-    # time.sleep(2)
 
 
 def login(browser, email, password):
@@ -34,17 +33,14 @@ def login(browser, email, password):
     password_input.send_keys(password)
     sign_in_btn = browser.find_element_by_xpath('//button[@class="btn btn-lg btn-primary pull-xs-right"]')
     sign_in_btn.click()
-    # time.sleep(2)
 
 
 def logout(browser):
     log_out_btn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//ul/li[5]/a')))
     log_out_btn.click()
-    # time.sleep(2)
 
 
 def publish_article(browser, title, summary, text, tag):
-    # time.sleep(3)
     new_article_btn = WebDriverWait(browser, 10).until(
         EC.presence_of_element_located((By.XPATH, '//a[@href="#/editor"]')))
     new_article_btn.click()
@@ -62,8 +58,10 @@ def publish_article(browser, title, summary, text, tag):
 
 
 def add_comment(browser, comment):
-    time.sleep(2)
-    first_post = browser.find_elements_by_xpath('//h1')[1]
+    # time.sleep(2)
+    first_post = WebDriverWait(browser, 10).until(
+        EC.presence_of_element_located((By.XPATH, '//h1')))[1]
+    # first_post = browser.find_elements_by_xpath('//h1')[1]
     first_post.click()
     comment_textarea = WebDriverWait(browser, 10).until(
         EC.presence_of_element_located((By.XPATH, '//textarea[@placeholder="Write a comment..."]')))
