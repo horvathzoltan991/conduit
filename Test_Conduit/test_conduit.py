@@ -11,7 +11,6 @@ class TestConduit(object):
         browser_options = Options()
         browser_options.headless = True
         self.browser = webdriver.Chrome(ChromeDriverManager().install(), options=browser_options)
-        self.browser.implicitly_wait(10)
         url = 'http://localhost:1667/'
         self.browser.get(url)
 
