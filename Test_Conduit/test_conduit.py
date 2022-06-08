@@ -38,8 +38,7 @@ class TestConduit(object):
     def test_login(self):
         login(self.browser, test_data['valid_email'], test_data['valid_password'])
         time.sleep(10)
-        profile_btn = WebDriverWait(self.browser, 10).until(
-            EC.presence_of_element_located((By.XPATH, '//a[@href="#/@hzoltan/" and @class="nav-link"]')))
+        profile_btn = self.browser.find_element_by_xpath('//a[@href="#/@hzoltan/" and @class="nav-link"]')
         assert profile_btn.text == 'hzoltan'
 
     # TC04 - Adatok listázása (tagek listázása)
