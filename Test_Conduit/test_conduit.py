@@ -37,7 +37,6 @@ class TestConduit(object):
     # TC03 - Bejelentkezés (helyes adatokkal)
     def test_login(self):
         login(self.browser, test_data['valid_email'], test_data['valid_password'])
-        time.sleep(5)
         profile_btn = self.browser.find_element_by_xpath('//a[@href="#/@hzoltan/" and @class="nav-link"]')
         assert profile_btn.text == 'hzoltan'
 
