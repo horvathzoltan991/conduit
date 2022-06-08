@@ -33,6 +33,7 @@ def login(browser, email, password):
     password_input.send_keys(password)
     sign_in_btn = browser.find_element_by_xpath('//button[@class="btn btn-lg btn-primary pull-xs-right"]')
     sign_in_btn.click()
+    time.sleep(5)
 
 
 def logout(browser):
@@ -41,6 +42,7 @@ def logout(browser):
 
 
 def publish_article(browser, title, summary, text, tag):
+    time.sleep(3)
     new_article_btn = WebDriverWait(browser, 10).until(
         EC.presence_of_element_located((By.XPATH, '//a[@href="#/editor"]')))
     new_article_btn.click()
