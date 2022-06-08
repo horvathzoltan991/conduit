@@ -37,6 +37,9 @@ class TestConduit(object):
     # TC03 - Bejelentkezés (helyes adatokkal)
     def test_login(self):
         registration(self.browser, test_data['valid_username'], test_data['valid_email'], test_data['valid_password'])
+        reg_confirm_btn = WebDriverWait(self.browser, 10).until(
+             EC.presence_of_all_elements_located((By.XPATH, '//button[@class="swal-button swal-button--confirm"]')))
+        reg_confirm_btn.click()
         logout(self.browser)
         login(self.browser, test_data['valid_email'], test_data['valid_password'])
         profile_btn = self.browser.find_element_by_xpath('//a[@href="#/@hzoltan/" and @class="nav-link"]')
