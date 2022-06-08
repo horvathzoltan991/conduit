@@ -8,7 +8,7 @@ def accept_cookies(browser):
     accept_cookie_btn = browser.find_element_by_xpath(
         '//button[@class="cookie__bar__buttons__button cookie__bar__buttons__button--accept"]')
     accept_cookie_btn.click()
-    # time.sleep(2)
+    time.sleep(2)
 
 
 def registration(browser, username, email, password):
@@ -91,4 +91,4 @@ def delete_comment(browser):
     delete_btn = WebDriverWait(browser, 10).until(
         EC.presence_of_element_located((By.XPATH, '//i[@class="ion-trash-a"]')))
     delete_btn.click()
-    # time.sleep(2)
+    time.sleep(2)
