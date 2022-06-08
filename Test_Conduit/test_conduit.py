@@ -37,7 +37,6 @@ class TestConduit(object):
     # TC03 - Bejelentkezés (helyes adatokkal)
     def test_login(self):
         login(self.browser, test_data['valid_email'], test_data['valid_password'])
-        time.sleep(10)
         profile_btn = WebDriverWait(self.browser, 10).until(
             EC.presence_of_element_located((By.XPATH, '//a[@href="#/@hzoltan/" and @class="nav-link"]')))
         assert profile_btn.text == 'hzoltan'
