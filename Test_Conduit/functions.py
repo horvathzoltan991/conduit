@@ -1,7 +1,7 @@
 import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 
 
 def accept_cookies(browser):
@@ -25,9 +25,10 @@ def registration(browser, username, email, password):
 
 
 def login(browser, email, password):
-    sign_in_nav_btn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//a[@href="#/login"]')))
+    sign_in_nav_btn = WebDriverWait(browser, 10).until(
+        ec.presence_of_element_located((By.XPATH, '//a[@href="#/login"]')))
     sign_in_nav_btn.click()
-    email_input = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//input[@type="text"]')))
+    email_input = WebDriverWait(browser, 10).until(ec.presence_of_element_located((By.XPATH, '//input[@type="text"]')))
     email_input.send_keys(email)
     password_input = browser.find_element_by_xpath('//input[@type="password"]')
     password_input.send_keys(password)
@@ -36,16 +37,16 @@ def login(browser, email, password):
 
 
 def logout(browser):
-    log_out_btn = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//ul/li[5]/a')))
+    log_out_btn = WebDriverWait(browser, 10).until(ec.presence_of_element_located((By.XPATH, '//ul/li[5]/a')))
     log_out_btn.click()
 
 
 def publish_article(browser, title, summary, text, tag):
     new_article_btn = WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//a[@href="#/editor"]')))
+        ec.presence_of_element_located((By.XPATH, '//a[@href="#/editor"]')))
     new_article_btn.click()
     article_title = WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//fieldset/input[@class="form-control form-control-lg"]')))
+        ec.presence_of_element_located((By.XPATH, '//fieldset/input[@class="form-control form-control-lg"]')))
     article_title.send_keys(title)
     article_summary = browser.find_element_by_xpath('//fieldset/input[@class="form-control"]')
     article_summary.send_keys(summary)
@@ -62,7 +63,7 @@ def add_comment(browser, comment):
     first_post = browser.find_elements_by_xpath('//h1')[1]
     first_post.click()
     comment_textarea = WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//textarea[@placeholder="Write a comment..."]')))
+        ec.presence_of_element_located((By.XPATH, '//textarea[@placeholder="Write a comment..."]')))
     comment_textarea.send_keys(comment)
     post_btn = browser.find_element_by_xpath('//button[@class="btn btn-sm btn-primary"]')
     post_btn.click()
@@ -70,13 +71,13 @@ def add_comment(browser, comment):
 
 def navigate_to_settings(browser):
     settings_btn = WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//a[@href="#/settings"]')))
+        ec.presence_of_element_located((By.XPATH, '//a[@href="#/settings"]')))
     settings_btn.click()
 
 
 def change_profile_pic(browser, url):
     picture_link_input = WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//input[@placeholder="URL of profile picture"]')))
+        ec.presence_of_element_located((By.XPATH, '//input[@placeholder="URL of profile picture"]')))
     picture_link_input.clear()
     picture_link_input.send_keys(url)
     update_btn = browser.find_element_by_xpath('//button[@class="btn btn-lg btn-primary pull-xs-right"]')
@@ -85,6 +86,6 @@ def change_profile_pic(browser, url):
 
 def delete_comment(browser):
     delete_btn = WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((By.XPATH, '//i[@class="ion-trash-a"]')))
+        ec.presence_of_element_located((By.XPATH, '//i[@class="ion-trash-a"]')))
     delete_btn.click()
     time.sleep(1)
